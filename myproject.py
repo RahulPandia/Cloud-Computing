@@ -320,6 +320,11 @@ def create_ride():
         time_stamp=request.get_json()["time_stamp"]
         source=request.get_json()["source"]
         destination=request.get_json()["destination"]
+        
+        z=re.match("(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}:[0-5][0-9]-[0-5][0-9]-(2[0-3]|[01][0-9])",time_stamp)
+        if not z:
+            abort(401)
+           
         if(time.strptime(time_stamp, '%d-%m-%Y:%S-%M-%H')):
             data = {"join":0,"table":"rides","created_by":created_by,"time_stamp":time_stamp,"source":dicts[source],"destination":dicts[destination]}
             print(data)
